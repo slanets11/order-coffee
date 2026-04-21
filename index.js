@@ -84,12 +84,13 @@ function buildOrderTable() {
     const drinkName = fieldset.querySelector('select').selectedOptions[0].textContent;
     const milkValue = fieldset.querySelector('input[type="radio"]:checked')?.value || '';
     const additionalText = getAdditionalText(fieldset);
-
+    const comment = document.getElementById('comment').value;
     const row = document.createElement('tr');
     row.innerHTML = `
       <td>${drinkName}</td>
       <td>${getMilkText(milkValue)}</td>
       <td>${additionalText}</td>
+      <td>${comment}</td>
     `;
     tbody.appendChild(row);
   });
