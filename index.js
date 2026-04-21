@@ -144,3 +144,36 @@ function updateRemoveButtons() {
 }
 
 updateRemoveButtons();
+
+function addComment() {
+    const textarea = document.getElementById('comment');
+    const result = document.getElementById('result');
+
+    const regex = /(срочно|быстрее|побыстрее|скорее|поскорее|очень нужно)/gi;
+
+    textarea.addEventListener('input', () => {
+        const text = textarea.value;
+        result.textContent = '';
+        regex.lastIndex = 0;
+        let lastIndex = 0;
+        let match;
+        while ((match = regex.exec(text)) !== null) {
+            const before = text.slice(lastIndex, match.index);
+            if (before) {
+                result.append(document.createTextNode(before));
+            }
+
+            const bold = document.createElement('b');
+            bold.textContent = match[0];
+            result.append(bold);
+            lastIndex = match.index + match[0].length;
+        }
+
+        const after = text.slice(lastIndex);
+        if (after) {
+            result.append(document.createTextNode(after));
+        }
+    });
+}
+
+addComment();
