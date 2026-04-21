@@ -1,5 +1,34 @@
 let drinkCount = 1;
 
+function highlightUrgentWords(text) {
+  const words = [
+    'срочно',
+    'быстрее',
+    'побыстрее',
+    'скорее',
+    'поскорее',
+    'очень нужно'
+  ];
+
+  let result = text;
+
+  words.forEach(word => {
+    const regex = new RegExp(`(${word})`, 'gi');
+    result = result.replace(regex, '<b>$1</b>');
+  });
+
+  return result;
+}
+
+function attachTextareaListener(fieldset) {
+  const textarea = fieldset.querySelector('.extra-text');
+  const preview = fieldset.querySelector('.extra-preview');
+
+  textarea.addEventListener('input', () => {
+    preview.innerHTML = highlightUrgentWords(textarea.value);
+  });
+}
+
 document.querySelector('.add-button').addEventListener('click', () => {
   drinkCount++;
   
